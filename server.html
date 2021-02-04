@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dupme Sonata Server</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var ipAd;
+        var socket = io.connect('http://' + 'localhost' + ':5050');
+        window.onload = function() {
+            socket.emit('serverRegistration',null);
+        }
+
+        socket.on('ipV4', message => {
+            ipAd = message;
+            console.log(message);
+            document.getElementById('clienturl').textContent = 'http://' + ipAd + ':5050';
+        })
+        socket.on('ServerRegistrationFail', message => {
+            ipAd = message;
+            window.location.href = 'http://' + ipAd + ':5050'
+        })
+        socket.on('updateUser', message => {
+            document.getElementById('numberSocket').textContent = message[0];
+            document.getElementById('numberLogin').textContent = message[1];
+        })
+    </script>
+    <style>
+        body{
+            background-image: url("public/images/backMountpurple.jpg");
+            background-repeat: no-repeat;
+            background-position: 5% 60%;
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+        }       
+        .numberblock{
+            display: inline-block;
+            width: 30%;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color:blanchedalmond;">Dupme Sonata Server</h1>
+    <hr>
+    <br>
+    <div class="numberblock">
+        <h2>Current Socket Connection</h2>
+        <hr>
+        <h2 id="numberSocket">0</h2>
+    </div>
+    <div class="numberblock">
+        <h2>Current Login Connection</h2>
+        <hr>
+        <h2 id="numberLogin">0</h2>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center; color: whitesmoke;">
+        <h2 id="clienturl" style="color: whitesmoke;">http://localhost:5050</h2>
+    </div>
+    <br>
+    <br>
+    <input type="button" value="RESET SERVER" style="border-radius: 10px; width: 300px; height: 50px; font-size: 20px; background-color: bisque;" onclick="resetServer()">
+    <script>
+        function resetServer() {
+            socket.emit('resetServer', null);
+        }
+    </script>
+</body>
+</html>

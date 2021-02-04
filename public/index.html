@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dupme Sonata</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+<!-- *********************** First Page *********************** -->
+<div id="FirstPage" class="firstpage" onclick="changeTo('LoginPage'); startBGM(); changeBG('login.jpg')" style="display: block; padding: 10% 0;">
+    <h2 class="headerText">“Where words fail, music speaks.”</h2>
+    <p><b>– Hans Christian Anderson</b></p>
+    <br>
+    <div><p class="glow">Press anywhere to begin your journey</p></div>
+</div>
+
+<!-- *********************** Login Page *********************** -->
+<div id="LoginPage" class="page">
+    <form id="UserInitialForm" action="#" onsubmit="Login(); return false;" autocomplete="off">
+        <h3 style="color: saddlebrown;">Proudly Present..</h3>
+        <h1 style="color: saddlebrown;">---- Dupme Sonata ----</h1>
+        <h3 style="color: saddlebrown;">Please Select your Avatar</h3>
+        <div class="firstPageAvatar"><img id="avatar1" src="images/avatar1.png" onclick="changeAvatar('avatar1')" class="img-avatar"></div>
+        <div class="firstPageAvatar"><img id="avatar2" src="images/avatar2.png" onclick="changeAvatar('avatar2')" class="img-avatar" style="background-color: bisque;"></div>
+        <div class="firstPageAvatar"><img id="avatar3" src="images/avatar3.png" onclick="changeAvatar('avatar3')" class="img-avatar"></div>
+        <div class="firstPageAvatar"><img id="avatar4" src="images/avatar4.png" onclick="changeAvatar('avatar4')" class="img-avatar"></div>
+        <div class="firstPageAvatar"><img id="avatar5" src="images/avatar5.png" onclick="changeAvatar('avatar5')" class="img-avatar"></div>
+        <br><br><br>
+        <input id="LoginForm-Name" type="text" placeholder="Please Enter Your Name" style="text-align: center;">
+        <br>
+        <input id="btn-Login" class="button" type="submit" value="Get Started!">
+    </form>
+</div>
+
+<!-- *********************** Welcome Page *********************** -->
+<div id="WelcomePage" class="page">
+    <div style="display: block; position: 20%;">
+        <br><br>
+        <img id="avatarMenu" src="" class="welcome-avatar">
+        <br>
+        <h3 class="welcome-name">Hi </h3><h3 id="nameMenu" class="welcome-name" style="text-shadow: 0 0 10px #fff">Anonymous</h3><h3 class="welcome-name">, welcome to the game! </h3>
+        <!-- <div id="avatarNameMenu" style="color: ;"></div> -->        
+        <h2 class="headerText" style="color: saddlebrown;">----- Menu -----</h2>
+        <br>
+        <button class="button" onclick="changeTo('LobbyPage'); changeBG('lobby.jpg')">LOBBY</button>
+        <br>
+        <button class="button" onclick="changeTo('HowToPlayPage'); changeBG('howtoplay.jpg')">How to Play</button>
+        <br>
+        <button class="button" onclick="changeTo('SettingPage'); changeBG('setting.jpg')">Setting</button>
+        <br><br><br>
+        <button onclick="Exit()" class="backButton">Exit</button>
+    </div>
+</div>
+
+<!-- *********************** Lobby Page *********************** -->
+<div id="LobbyPage" class="page">
+    <h2 class="headerText" style="color: saddlebrown;">----- Lobby -----</h2>
+    <div id="lobbyOnline" class="lobby" style="overflow-y: scroll;"></div>
+    <!-- <div id="challenger" class="lobby"></div> -->
+    <button id="lobbyback" class="backButton" onclick="changeTo('WelcomePage'); changeBG('welcome.jpg');">Back To MainMenu</button>  
+    
+    <div id="chatbox" class="chatbox">
+        <div id="chatmessage" class="chatmessage">
+        </div>
+        <div id="chatinput">
+            <form id="chatform" action="#" onsubmit="chatinput(); return false;" autocomplete="off">
+                <input id="chattextform" type="text" class="chattextform" placeholder="Your Message">
+                <input type="submit" value="Send" class="chatsubmit">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- *********************** How To Play Page *********************** -->
+<div id="HowToPlayPage" class="page">
+    <h2 style="color: saddlebrown;">----- How To Play -----</h2>
+    <div style="width: 80%; margin: auto;">
+        <div style="background-color: rgb(247, 235, 214); padding: 20px 60px; border-top-left-radius: 50px; border-top-right-radius: 50px;">Pair up with an opponent either by challenging one of them directly or accepting their challenges.</div>
+        <div style="background-color: rgb(247, 231, 203); padding: 20px 60px;">Once you are paired up with the opponent, you and your opponent would be randomly selected to go first.</div>   
+        <div style="background-color: rgb(245, 226, 190); padding: 20px 60px;">In case you are the first one to go: You have 10 seconds to create a pattern on the piano as you desire. Then your opponent would have 20 seconds trying to duplicate your pattern. The more accurate the following pattern, the more accumulated point he/she would receive. <br> In case you are the second player: You have to wait for 10 seconds and try to memorize your opponent’s piano pattern. Then you would have 20 seconds trying to duplicate your opponent’s pattern. The more accurate the following pattern, the more accumulated point you would receive.</div>
+        <div style="background-color: wheat; padding: 20px 60px;">You and your opponent would take turns to create piano patterns and try to copy the other player patterns. </div>
+        <div style="background-color: rgb(241, 216, 168); padding: 20px 60px;">If you make a wrong guess, don't worry and move on to the next note! </div>
+        <div style="background-color: rgb(247, 219, 169); padding: 20px 60px;">Both of you would have 2 chances to create your own piano patterns and so does your opponent.</div>
+        <div style="background-color: rgb(248, 210, 163); padding: 20px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;">You have 3 hints per game, which will play the next key for you, so play on!</div>
+
+        <!-- <img width=10%; margin:auto; src="images/homeWhite.png" onclick="changeTo('WelcomePage')"></img>
+        <div style="color:white; font-weight: bolder;">Back to Main Menu</div> -->
+        <button class="backButton" onclick="changeTo('WelcomePage'); changeBG('welcome.jpg');">Back To MainMenu</div>
+    </div>
+</div>
+
+<!-- *********************** Setting Page *********************** -->
+<div id="SettingPage" class="page">
+    <h1 style="color: rgb(100, 46, 7);">-------- Setting --------</h1>
+    <br>
+    <!-- Background Music Selector -->
+    <div onclick="openCard('card-bgmSelector')" style="color: saddlebrown;"><h3>Background Music Selector</h3></div>
+    <div id="card-bgmSelector" style="display: none; overflow-y: scroll; background-color: beige;">
+        <hr>
+        <div id="bgmRiverFlowsInYou" onclick="changeBGM('bgmRiverFlowsInYou')" style="color: red;"><h3>River Flows In You</h3></div>
+        <div id="bgmSalutDAmour" onclick="changeBGM('bgmSalutDAmour')"><h3>Salut D'Amour</h3></div>
+        <div id="bgmMLSonata1" onclick="changeBGM('bgmMLSonata1')"><h3>Moonlight Sonata 1st Movement</h3></div>
+        <div id="bgmChopinNocturne9-2" onclick="changeBGM('bgmChopinNocturne9-2')"><h3>Chopin Nocturne Op9 No2</h3></div>
+        <div id="bgmKissTheRain" onclick="changeBGM('bgmKissTheRain')"><h3>Kiss The Rain</h3></div>
+        <div id="bgmSadnessAndSorrow" onclick="changeBGM('bgmSadnessAndSorrow')"><h3>Sadness and Sorrow</h3></div>
+        <div id="bgmFurElise" onclick="changeBGM('bgmFurElise')"><h3>Fur Elise</h3></div>
+        <hr>
+    </div>
+    <!-- Background Music Volume -->
+    <div onclick="openCard('card-bgmVolume')" style="color: saddlebrown;"><h3>Background Music Volume</h3></div>
+    <div id="card-bgmVolume" style="display: none; background-color:beige;">
+        <hr>
+        <h4 style="display: inline;">Volume</h4>
+        <input id="bgmRange" type="range" min="0" max="100" value="50" onchange="changeBGMVolume(this.value)">
+        <h4 id="volumeBGM" style="display: inline;">50%</h4>
+        <hr>
+    </div>
+    <!-- Sound Effect Volume -->
+    <div onclick="openCard('card-seVolume')" style="color: saddlebrown;"><h3>Sound Effect Volume</h3></div>
+    <div id="card-seVolume" style="display: none; background-color: beige;">
+        <hr>
+        <div id="seON" onclick="setSoundEffect('on')" style="color:red;"><h3>ON</h3></div>
+        <div id="seOFF" onclick="setSoundEffect('off')"><h3>OFF</h3></div>
+        <hr>
+    </div>
+    <!-- Sound Effect Volume -->
+    <div onclick="openCard('card-cursor')" style="color: saddlebrown;"><h3>Cursor Selection</h3></div>
+    <div id="card-cursor" style="display: none; background-color: beige;">
+        <hr>
+        <div id="music" onclick="changeCursor('music')" style="color:red;"><h3>Music</h3></div>
+        <div id="violin" onclick="changeCursor('violin')"><h3>Violin</h3></div>
+        <div id="moon" onclick="changeCursor('moon')"><h3>Moon</h3></div>
+        <div id="rain" onclick="changeCursor('rain')"><h3>Rain</h3></div>
+        <div id="piano" onclick="changeCursor('piano')"><h3>Piano</h3></div>
+        <hr>
+    </div>
+    <!-- Themes -->
+    <div onclick="openCard('card-theme')" style="color: saddlebrown;"><h3>Theme Selection</h3></div>
+    <div id="card-theme" style="display: none; background-color: beige;">
+        <hr>
+        <div id="FOREST" onclick="changeTheme('FOREST')" style="color:red;"><h3>Forest</h3></div>
+        <div id="CASTLE" onclick="changeTheme('CASTLE')"><h3>Castle</h3></div>
+        <div id="LALALAND" onclick="changeTheme('LALALAND')"><h3>LaLaLand</h3></div>
+        <hr>
+    </div>
+    <br><br>
+    <button onclick="changeTo('WelcomePage'); changeBG('welcome.jpg');" class="backButton">Back To Menu</button>
+</div>
+
+<!-- *********************** Paired Page *********************** -->
+<div id="PairedPage" class="page">
+    <br><br><br><br><br>
+    <div style="margin: auto; vertical-align: auto;" class="loader"></div>
+    <br>
+    <h3 style="color: saddlebrown;">Prepared for BATTLE!</h3>
+</div>
+
+<!-- *********************** Game Page *********************** -->
+<div id="GamePage" class="page" style="display: none;">
+    <div class="gameNavigator">
+        <div class="NaviBlock" style="width: 20%; right:0;">
+            <img id="player1-avatar" src="images/avatar1.png" class="gameAvatar">
+            <h4 id="player1-name">PLAYER1</h4>
+            <h2 class="naviScore" id="player1-score">000000</h2>
+        </div>
+        <div class="NaviBlock" style="width: 50%;">
+            <br>
+            <p class="naviAnnounce" id="round">ANNOUNCEMENT</p>
+            <div id="naviTimer" class="timer"><p id="Timer">0</p></div>
+        </div>
+        <div class="NaviBlock" style="width: 20%; left:0;">
+            <img id="player2-avatar" src="images/avatar1.png" class="gameAvatar">
+            <h4 id="player2-name">PLAYER2</h4>
+            <h2 class="naviScore" id="player2-score">000000</h2>
+        </div>
+    </div>
+    <div class="pianoInterface">
+        <div id='tC' class="key white-key" onclick="playKey('C')"></div>
+        <div id='tDb' class="key black-key" onclick="playKey('Db')"></div>
+        <div id='tD' class="key white-key" onclick="playKey('D')"></div>
+        <div id='tEb' class="key black-key" onclick="playKey('Eb')"></div>
+        <div id='tE' class="key white-key" onclick="playKey('E')"></div>
+        <div id='tF' class="key white-key" onclick="playKey('F')"></div>
+        <div id='tGb' class="key black-key" onclick="playKey('Gb')"></div>
+        <div id='tG' class="key white-key" onclick="playKey('G')"></div>
+        <div id='tAb' class="key black-key" onclick="playKey('Ab')"></div>
+        <div id='tA' class="key white-key" onclick="playKey('A')"></div>
+        <div id='tBb' class="key black-key" onclick="playKey('Bb')"></div>
+        <div id='tB' class="key white-key" onclick="playKey('B')"></div>
+        <div id='tCp' class="key white-key" onclick="playKey('Cp')"></div>
+    </div>
+    <div class = "pianosubmit">
+        <button id="hintbutton" type="button" onclick="getHint()" class="game-button">Hint</button>
+        <button type="button" onclick="surrender()" class="game-button">Surrender</button>
+    </div>
+</div>
+
+<!-- *********************** End Page *********************** -->
+<div id="Endpage" class="page" style="display: none">
+    <div class = "gameResult">
+        <div class="resultBlock" style="width: 30%; right:0;">
+            <div id = "player1-endName">PLAYER1</div>
+            <div id = "player1-endScore">000000</div>
+        </div>
+        <div class="resultBlock" style="width: 30%;">
+            <div id = "winner">PLAYER WIN</div>
+        </div>
+        <div class="resultBlock" style="width: 30%; left:0;">
+            <div id = "player2-endName">PLAYER2</div>
+            <div id = "player2-endScore">000000</div>
+        </div>
+    </div>
+    <div class="meme">
+        <img id = "endPicture" src="images/win.jpg" width="300px">
+        <br><br>
+        <button id="rematchButton" class="rainbowButton button" onclick = "Rematch()" style="margin: 0 10px 0 0; width: 170px;">REMATCH</button>
+        <button onclick="leaveRoom()" class="button"  style="background-color: white; color: peru; width: 170px;">LEAVE</button>
+    </div>
+</div>
+
+<!-- *********************** Piano Audio *********************** -->
+    <audio id="C" src="sounds/keys/C.mp3"></audio>
+    <audio id="Db" src="sounds/keys/Db.mp3"></audio>
+    <audio id="D" src="sounds/keys/D.mp3"></audio>
+    <audio id="Eb" src="sounds/keys/Eb.mp3"></audio>
+    <audio id="E" src="sounds/keys/E.mp3"></audio>
+    <audio id="F" src="sounds/keys/F.mp3"></audio>
+    <audio id="Gb" src="sounds/keys/Gb.mp3"></audio>
+    <audio id="G" src="sounds/keys/G.mp3"></audio>
+    <audio id="Ab" src="sounds/keys/Ab.mp3"></audio>
+    <audio id="A" src="sounds/keys/A.mp3"></audio>
+    <audio id="Bb" src="sounds/keys/Bb.mp3"></audio>
+    <audio id="B" src="sounds/keys/B.mp3"></audio>
+    <audio id="Cp" src="sounds/keys/Cp.mp3"></audio>
+<!-- ************************************************************ -->    
+
+
+<!-- ////////////////////////////////////////////// -->
+</body>
+</html>

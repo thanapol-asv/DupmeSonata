@@ -1,0 +1,20 @@
+{
+  "name": "dupmesonata",
+  "version": "1.0.0",
+  "description": "DupmeSonata",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "open": "^7.3.0",
+    "quick-local-ip": "^1.0.7",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
