@@ -13,7 +13,7 @@ const server = app.listen(PORT, function () {
     console.log('http://' + ipAd.getLocalIP4() + ':' + PORT)
     console.log('==============================================');
     
-    open('server.html');
+    //open('server.html');
 });
 
 // Static files
