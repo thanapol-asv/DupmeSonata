@@ -4,6 +4,7 @@ const ipAd = require('quick-local-ip');
 const open = require('open');
 
 // App setup
+//const PORT = process.env.PORT;
 const PORT = 5050;
 const app = express();
 const server = app.listen(PORT, function () {
