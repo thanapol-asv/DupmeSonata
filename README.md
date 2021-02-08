@@ -4,7 +4,7 @@
 - This is a project in **Netcentric Architecture** class at Chulalongkorn University (1/2020)
 - The objective of this project is to understand how to deal with socket in network programming.
 - A 2-players game where each player must follows another player's steps correctly to win.
-- This project has been deploy at Heroku: https://pta-dupme-sonata.herokuapp.com
+- This project is deployed to Heroku at the following url: https://pta-dupme-sonata.herokuapp.com
 
 ### Instruction
 1. This project is required node_modules to successfully execute, you can install node_modules by using the command `npm install`
